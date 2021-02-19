@@ -1,0 +1,32 @@
+[push]
+	default = current
+    followTags = true
+[alias]
+	unstage = reset HEAD --
+	uncommit = reset --soft HEAD^
+	mup = !"git fetch origin -v; git fetch upstream -v; git merge upstream/master"
+	pullall = !"git pull; git submodule update --init --recursive"
+	dw = diff --word-diff
+	dc = diff --cached
+	lg = log --oneline --decorate
+	st = status -sb
+	fp = format-patch -M -n --stdout -s HEAD^ --start-number
+    c = commit
+    r = reset
+    ck = checkout
+[core]
+	editor = vim
+	filemode = false
+	excludesfile = ~/.files/gitignore
+[color]
+	ui = auto
+[merge]
+	tool = mymeld
+	conflictstyle = diff3
+[mergetool "mymeld"]
+   cmd = $HOME/.files/bin/gitmerge $BASE $LOCAL $REMOTE $MERGED
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true

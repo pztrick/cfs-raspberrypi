@@ -1,0 +1,40 @@
+FROM ubuntu:18.04
+
+ARG DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get -qy update                              \
+    && apt-get -y install --no-install-recommends   \
+        ca-certificates=20190110~18.04.1            \
+        git=1:2.17.1-1ubuntu0.7                     \
+        cmake=3.10.2-1ubuntu2.18.04.1               \
+        make=4.1-9.1ubuntu1                         \
+        gcc=4:7.4.0-1ubuntu2.3                      \
+        g++=4:7.4.0-1ubuntu2.3                      \
+    && rm -rf /var/lib/apt/lists/*
+
+# Optional: Install lcov
+RUN apt-get -qy update && apt-get -y install lcov=1.13-3;
+
+# Install x-toolchain for aarch64
+RUN apt-get -y install gcc-7-aarch64-linux-gnu g++-7-aarch64-linux-gnu vim
+
+# Install x-toolchain for armhf
+RUN apt-get -qy update && apt-get -y install gcc-7-arm-linux-gnueabi g++-7-arm-linux-gnueabi
+
+# Install autoconf for third-party libs
+RUN apt-get -y install autoconf sudo libtool tree
+
+RUN groupadd -g 1000 docker
+RUN echo "docker:x:1000:1000:docker,,,:/home/docker:/bin/bash" | tee -a /etc/passwd
+RUN echo "docker ALL=(ALL) NOPASSWD: ALL" | tee -a /etc/sudoers
+
+RUN mkdir -p /home/docker
+
+ADD bashrc /root/.bashrc
+ADD bashrc /home/docker/.bashrc
+ADD gitconfig /root/.gitconfig
+ADD gitconfig /home/docker/.gitconfig
+
+RUN echo ubuntu18 > /etc/hostname
+
+WORKDIR /opt/cfs

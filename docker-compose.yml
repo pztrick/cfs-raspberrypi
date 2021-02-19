@@ -1,0 +1,43 @@
+version: '3.1'
+
+services:
+    rpi3:
+        container_name: rpi
+        restart: on-failure
+        user: "1000:1000"
+        environment:
+            O: build-rpi3
+            SIMULATION: "raspberrypi-arm64"
+            BUILDTYPE: "debug"
+            OMIT_DEPRECATED: "true"
+            MISSIONCONFIG: "rpi"
+        build:
+            context: ./dockerfiles
+            dockerfile: ubuntu18
+        logging:
+            driver: "json-file"
+            options:
+                max-size: "5m"
+                max-file: "2"
+        volumes:
+            - "${PWD}:/opt/cfs"
+    rpi1:
+        container_name: rpi
+        restart: on-failure
+        user: "1000:1000"
+        environment:
+            O: build-rpi1
+            SIMULATION: "raspberrypi-armhf"
+            BUILDTYPE: "debug"
+            OMIT_DEPRECATED: "true"
+            MISSIONCONFIG: "rpi"
+        build:
+            context: ./dockerfiles
+            dockerfile: ubuntu18
+        logging:
+            driver: "json-file"
+            options:
+                max-size: "5m"
+                max-file: "2"
+        volumes:
+            - "${PWD}:/opt/cfs"
