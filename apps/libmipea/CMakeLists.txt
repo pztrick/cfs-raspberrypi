@@ -21,7 +21,7 @@ ExternalProject_Add(
     SOURCE_DIR ${MIPEA_DIR}
     DOWNLOAD_COMMAND rm -rf ${MIPEA_DIR} && cp -rf ${MIPEA_GIT} ${MIPEA_DIR} && cp ${CMAKE_CURRENT_SOURCE_DIR}/config.h ${MIPEA_DIR}/config.h && cd ${MIPEA_DIR} && autoreconf --install
     CONFIGURE_COMMAND ${MIPEA_DIR}/configure CC=${MIPEA_CC} CXX=${MIPEA_CXX} --target=${TOOLCHAIN_PREFIX} --host=${TOOLCHAIN_PREFIX} --prefix=${CMAKE_CURRENT_BINARY_DIR}/libmipea --srcdir=${MIPEA_DIR} --enable-static=yes --disable-shared
-    BUILD_COMMAND make CPPFLAGS=-DBCM2836_7=1
+    BUILD_COMMAND make
     INSTALL_COMMAND make install
     BUILD_BYPRODUCTS ${MIPEA_STATIC_LIB}
 )
