@@ -1,0 +1,12 @@
+[submodule "cfe"]
+	path = cfe
+	url = git@github.com:nasa/cfe.git
+[submodule "osal"]
+	path = osal
+	url = git@github.com:nasa/osal.git
+[submodule "psp"]
+	path = psp
+	url = git@github.com:nasa/psp.git
+[submodule "bundle/mipea"]
+	path = bundle/mipea
+	url = git@github.com:jasLogic/mipea.git
