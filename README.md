@@ -1,6 +1,6 @@
-# `cfs-rpi3`
+# `cfs-raspberrypi`
 
-## Building for rpi3
+## Building for Raspberry Pi
 
 This builds for a 64-bit `aarch64` Ubuntu image Raspberry Pi 3+.
 
